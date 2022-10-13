@@ -10,7 +10,7 @@ class PlaceFormScreen extends StatefulWidget {
 
 class _PlaceFormScreenState extends State<PlaceFormScreen> {
 
-
+final _titleController =  TextEditingController();
 
  void _submitform () {}
 
@@ -29,12 +29,13 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
-                  children: const <Widget>[
+                  children:  <Widget>[
                     TextField(
-                      decoration: InputDecoration(labelText: "Título"),
+                      controller: _titleController,
+                      decoration: const InputDecoration(labelText: "Título"),
                     ),
-                    SizedBox(height: 10),
-                    ImageImputWidget(),
+                    const SizedBox(height: 10),
+                    const ImageImputWidget(),
                   ],
                 ),
               ),
