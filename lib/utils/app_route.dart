@@ -1,4 +1,4 @@
 class AppRoute {
-  static const String place_form = "/place-form";
+  static const String placeForm = "/place-form";
 
 }

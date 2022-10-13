@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const PlacesListScreen(),
       routes: {
-        AppRoute.place_form: (ctx) => const PlaceFormScreen(),
+        AppRoute.placeForm: (ctx) => const PlaceFormScreen(),
       },
       debugShowCheckedModeBanner: false,
     );
