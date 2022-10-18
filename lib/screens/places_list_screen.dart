@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:where_are_u/providers/grate_places.dart';
-import 'package:where_are_u/utils/app_route.dart';
+import '../providers/great_places.dart';
+import '../utils/app_route.dart';
 
 class PlacesListScreen extends StatelessWidget {
   const PlacesListScreen({Key? key}) : super(key: key);
@@ -20,24 +20,33 @@ class PlacesListScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Consumer<GreatPlaces>(
-        child: const Center(
-          child: Text('Nenhum local salvo!'),
-        ),
-        builder: (ctx, greatPlaces, child) => greatPlaces.itemsCount == 0
-            ? child!
-            : ListView.builder(
-                itemCount: greatPlaces.itemsCount,
-                itemBuilder: (ctx, i) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: FileImage(
-                      greatPlaces.itemByIndex(i).image,
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
+        builder: (ctx, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Consumer<GreatPlaces>(
+                    child: const Center(
+                      child: Text('Nenhum local salvo!'),
                     ),
+                    builder: (ctx, greatPlaces, child) =>
+                        greatPlaces.itemsCount == 0
+                            ? child!
+                            : ListView.builder(
+                                itemCount: greatPlaces.itemsCount,
+                                itemBuilder: (ctx, i) => ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: FileImage(
+                                      greatPlaces.itemByIndex(i).image,
+                                    ),
+                                  ),
+                                  title: Text(greatPlaces.itemByIndex(i).title),
+                                  onTap: () {},
+                                ),
+                              ),
                   ),
-                  title: Text(greatPlaces.itemByIndex(i).title),
-                  onTap: () {},
-                ),
-              ),
       ),
     );
   }

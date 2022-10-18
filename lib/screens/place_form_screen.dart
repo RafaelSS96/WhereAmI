@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:where_are_u/providers/grate_places.dart';
-import 'package:where_are_u/widgets/image_imput.dart';
+import 'package:where_are_u/widgets/location_imput.dart';
+import '../providers/great_places.dart';
+import '../widgets/image_imput.dart';
 
 class PlaceFormScreen extends StatefulWidget {
   const PlaceFormScreen({Key? key}) : super(key: key);
@@ -54,6 +55,8 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     ),
                     const SizedBox(height: 10),
                     ImageImputWidget(_selectImage),
+                     const SizedBox(height: 10),
+                     const LocationImputWidget(),
                   ],
                 ),
               ),

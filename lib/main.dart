@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/grate_places.dart';
+import 'providers/great_places.dart';
 import '../utils/app_route.dart';
 import '../screens/place_form_screen.dart';
 import '../screens/places_list_screen.dart';
