@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:where_are_u/screens/place_form_screen.dart';
-import 'package:where_are_u/utils/app_route.dart';
+import 'package:provider/provider.dart';
+import '../providers/grate_places.dart';
+import '../utils/app_route.dart';
+import '../screens/place_form_screen.dart';
 import '../screens/places_list_screen.dart';
 
 void main() {
@@ -12,17 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Where are You?',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        secondaryHeaderColor: Colors.amber,
+    return ChangeNotifierProvider
+    (
+      create: (context) => GreatPlaces() ,
+      child: MaterialApp(
+        title: 'Where are You?',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+          secondaryHeaderColor: Colors.amber,
+        ),
+        home: const PlacesListScreen(),
+        routes: {
+          AppRoute.placeForm: (ctx) => const PlaceFormScreen(),
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      home: const PlacesListScreen(),
-      routes: {
-        AppRoute.placeForm: (ctx) => const PlaceFormScreen(),
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }

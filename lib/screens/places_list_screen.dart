@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:where_are_u/providers/grate_places.dart';
 import 'package:where_are_u/utils/app_route.dart';
 
 class PlacesListScreen extends StatelessWidget {
@@ -18,8 +20,24 @@ class PlacesListScreen extends StatelessWidget {
           )
         ],
       ),
-      body: const Center(
-        child:  CircularProgressIndicator(),
+      body: Consumer<GreatPlaces>(
+        child: const Center(
+          child: Text('Nenhum local salvo!'),
+        ),
+        builder: (ctx, greatPlaces, child) => greatPlaces.itemsCount == 0
+            ? child!
+            : ListView.builder(
+                itemCount: greatPlaces.itemsCount,
+                itemBuilder: (ctx, i) => ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: FileImage(
+                      greatPlaces.itemByIndex(i).image,
+                    ),
+                  ),
+                  title: Text(greatPlaces.itemByIndex(i).title),
+                  onTap: () {},
+                ),
+              ),
       ),
     );
   }

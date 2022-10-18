@@ -1,10 +1,13 @@
 import 'dart:io';
-
+import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageImputWidget extends StatefulWidget {
-  const ImageImputWidget({Key? key}) : super(key: key);
+  const ImageImputWidget(this.onSelectImage, {Key? key}) : super(key: key);
+
+  final Function onSelectImage;
 
   @override
   State<ImageImputWidget> createState() => _ImageImputWidgetState();
@@ -13,7 +16,7 @@ class ImageImputWidget extends StatefulWidget {
 class _ImageImputWidgetState extends State<ImageImputWidget> {
   File? _storedImage;
 
-  _takePicture () async {
+  _takePicture() async {
     final ImagePicker picker = ImagePicker();
     XFile imageFile = await picker.pickImage(
       source: ImageSource.camera,
@@ -24,6 +27,13 @@ class _ImageImputWidgetState extends State<ImageImputWidget> {
       _storedImage = File(imageFile.path);
     });
 
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    String fileName = path.basename(_storedImage!.path);
+    final savedImage = await _storedImage!.copy(
+      '${appDir.path}/$fileName',
+    );
+
+    widget.onSelectImage(savedImage);
   }
 
   @override
